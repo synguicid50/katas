@@ -1,2 +1,2 @@
-#Katas
+# Katas
 using .Net Core
