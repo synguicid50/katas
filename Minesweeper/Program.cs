@@ -117,6 +117,7 @@ namespace Minesweeper
             int focusTile = ((gridLengthY - (gridLengthY % 2)) / 2) * gridLengthX + ((gridLengthX - (gridLengthX % 2)) / 2); //place focusTile at the approximate center of grid
 
             Console.WriteLine(instructions);
+            Console.WriteLine($" [*] {mineCount - flaggedTiles.Count}  [\u2690] {flaggedTiles.Count}");
             DisplayGrid(gridLengthX, gridLengthY, visibleTiles, mineTiles, tileNumbers, focusTile, flaggedTiles);
 
             bool gameOver = false;
@@ -185,6 +186,7 @@ namespace Minesweeper
                 Console.Clear();
                 Console.WriteLine("\x1b[3J");
                 Console.WriteLine(instructions);
+                Console.WriteLine($" [*] {mineCount - flaggedTiles.Count}  [\u2690] {flaggedTiles.Count}");
                 DisplayGrid(gridLengthX, gridLengthY, visibleTiles, mineTiles, tileNumbers, focusTile, flaggedTiles);
 
                 if (visibleTiles.Contains(focusTile) && mineTiles.Contains(focusTile))
