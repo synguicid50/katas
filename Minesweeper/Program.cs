@@ -168,7 +168,6 @@ namespace Minesweeper
                         if (tileNumbers.ContainsKey(focusTile) && tileNumbers[focusTile] == 0)
                         {
                             ChainClear(focusTile, ref visibleTiles, gridLengthX, gridLengthY, tileNumbers);
-                            ChainClearBorder(ref visibleTiles, gridLengthX, gridLengthY, tileNumbers);
                         }
                         break;
                     case ConsoleKey.F:
@@ -473,22 +472,16 @@ namespace Minesweeper
                     ChainClear(adjacentTile, ref visibleTiles, gridLengthX, gridLengthY, tileNumbers);
                 }
             }
-        }
 
-        static void ChainClearBorder(ref List<int> visibleTiles, int gridLengthX, int gridLengthY, Dictionary<int, int> tileNumbers)
-        {
-            if (visibleTiles.Count > 0)
+            for (int i = 0; i < visibleTiles.Count; i++)
             {
-                for (int i = 0; i < visibleTiles.Count; i++)
+                if (tileNumbers.ContainsKey(visibleTiles[i]) && tileNumbers[visibleTiles[i]] == 0)
                 {
-                    if (tileNumbers.ContainsKey(visibleTiles[i]) && tileNumbers[visibleTiles[i]] == 0)
+                    foreach (var adjacentTile in FindAdjacentTiles(visibleTiles[i], gridLengthX, gridLengthY))
                     {
-                        foreach (var adjacentTile in FindAdjacentTiles(visibleTiles[i], gridLengthX, gridLengthY))
+                        if (!visibleTiles.Contains(adjacentTile) && tileNumbers.ContainsKey(adjacentTile) && tileNumbers[adjacentTile] != 0)
                         {
-                            if (!visibleTiles.Contains(adjacentTile) && tileNumbers.ContainsKey(adjacentTile) && tileNumbers[adjacentTile] != 0)
-                            {
-                                visibleTiles.Add(adjacentTile);
-                            }
+                            visibleTiles.Add(adjacentTile);
                         }
                     }
                 }
