@@ -393,65 +393,39 @@ namespace Minesweeper
                 Console.Write("║");
                 for (int i = 0; i < gridLengthX; i++)
                 {
+                    var tileBackground = (" ", " ");
+                    string tileCenter = " ";
+
                     if (visibleTiles.Contains(i + gridLengthX * j))
                     {
                         if (mineTiles.Contains(i + gridLengthX * j))
                         {
-                            if (i + gridLengthX * j == focusTile)
-                            {
-                                Console.Write("{*}");
-                            }
-                            else
-                            {
-                                Console.Write(" * ");
-                            }
+                            tileCenter = "*";
                         }
                         else if (tileNumbers.ContainsKey(i + gridLengthX * j))
                         {
-                            if (tileNumbers[i + gridLengthX * j] == 0)
-                            {
-                                if (i + gridLengthX * j == focusTile)
-                                {
-                                    Console.Write("{ }");
-                                }
-                                else
-                                {
-                                    Console.Write("   ");
-                                }
-                            }
-                            else
-                            {
-                                if (i + gridLengthX * j == focusTile)
-                                {
-                                    Console.Write($"{{{tileNumbers[i + gridLengthX * j]}}}");
-                                }
-                                else
-                                {
-                                    Console.Write($" {tileNumbers[i + gridLengthX * j]} ");
-                                }
-
-                            }
+                            tileCenter = (tileNumbers[i + gridLengthX * j] == 0) ? " " : Convert.ToString(tileNumbers[i + gridLengthX * j]);
                         }
                     }
                     else if (flaggedTiles.Contains(i + gridLengthX * j))
                     {
-                        if (i + gridLengthX * j == focusTile)
-                        {
-                            Console.Write("{\u2690}");
-                        }
-                        else
-                        {
-                            Console.Write(" \u2690 ");
-                        }
-                    }
-                    else if (i + gridLengthX * j == focusTile)
-                    {
-                        Console.Write("{X}");
+                        tileCenter = "\u2690";
                     }
                     else
                     {
-                        Console.Write("[ ]");
+                        tileBackground = ("[", "]");
                     }
+
+                    if (i + gridLengthX * j == focusTile)
+                    {
+                        tileBackground = ("{", "}");
+                        if (!visibleTiles.Contains(i + gridLengthX * j) && !flaggedTiles.Contains(i + gridLengthX * j))
+                        {
+                            tileCenter = "X";
+                        }
+                    }
+
+                    Console.Write(tileBackground.Item1 + tileCenter + tileBackground.Item2);
 
                     if (i < (gridLengthX - 1))
                     {
