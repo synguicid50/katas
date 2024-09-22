@@ -232,7 +232,7 @@ namespace Minesweeper
                 switch (userRestartInput)
                 {
                     case ConsoleKey.R:
-                        Sweep(gridLengthX, gridLengthY, mineCount);
+                        Main();
                         break;
                     case ConsoleKey.Q:
                         quitCommand = true;
